@@ -1,14 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "../api/axios";
 import BookmarkCard from "../components/BookmarkCard";
-import { useNavigate } from "react-router-dom";
-import ThemeSwitcher from "../components/ThemeSwitcher";
+import Header from "../components/Header";
 
 const Dashboard = () => {
   const [url, setUrl] = useState("");
   const [bookmarks, setBookmarks] = useState([]);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const navigate = useNavigate();
 
   const fetchBookmarks = useCallback(async () => {
     try {
@@ -16,7 +13,6 @@ const Dashboard = () => {
       setBookmarks(res.data);
     } catch (err) {
       console.error("Error fetching bookmarks:", err);
-      // Don't show alert or redirect on error - let the user handle it manually
     }
   }, []);
 
@@ -42,89 +38,62 @@ const Dashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/login"; // Use window.location for immediate redirect
-  };
-
   useEffect(() => {
-    // Only fetch if user is authenticated
     if (localStorage.getItem("token")) {
       fetchBookmarks();
     }
   }, [fetchBookmarks]);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      {/* Header with Theme Switcher */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                📌 My Bookmarks
-              </h1>
-            </div>
+    <div className="min-h-screen bg-pearl-50 dark:bg-obsidian-950 gradient-mesh-light dark:gradient-mesh-dark transition-all duration-500">
+      <Header />
 
-            <div className="flex items-center space-x-6">
-              <ThemeSwitcher />
-              <button
-                onClick={handleLogout}
-                className="text-red-600 dark:text-red-400 font-semibold hover:text-red-700 dark:hover:text-red-300 transition-colors duration-200 px-3 py-1 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* URL Input Form */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+      <main className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
+        <div className="bg-pearl-50/40  dark:bg-obsidian-900/90 backdrop-blur-xl rounded-3xl shadow-xl shadow-slate-900/5 dark:shadow-black/30 border border-pearl-200/60 dark:border-obsidian-700/60 p-10 mb-10 slide-in-up">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-azure-600 to-azure-700 dark:from-azure-400 dark:to-azure-300 bg-clip-text text-transparent mb-8">
             Add New Bookmark
           </h2>
-          <form onSubmit={handleSubmit} className="flex gap-3">
+          <form onSubmit={handleSubmit} className="flex gap-5">
             <input
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="Enter a URL to save"
-              className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
+              placeholder="Enter a URL to save..."
+              className="flex-1 px-6 py-4 border-0 bg-pearl-100/90 dark:bg-obsidian-800/90 backdrop-blur-sm rounded-2xl focus-professional text-slate-900 dark:text-pearl-100 placeholder-slate-500 dark:placeholder-obsidian-300 shadow-lg transition-all duration-300"
               required
             />
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              className="bg-gradient-to-r from-azure-500 to-azure-600 hover:from-azure-600 hover:to-azure-700 text-pearl-50 px-10 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:shadow-azure-500/25 hover:scale-105 transition-all duration-300"
             >
-              Save
+              Save Bookmark
             </button>
           </form>
         </div>
 
-        {/* Bookmarks Grid */}
-        <div className="space-y-4">
-          {bookmarks.map((bookmark) => (
-            <BookmarkCard
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+          {bookmarks.map((bookmark, index) => (
+            <div
               key={bookmark._id}
-              bookmark={bookmark}
-              onDelete={handleDelete}
-            />
-          ))}
-          {bookmarks.length === 0 && (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📚</div>
-              <p className="text-gray-600 dark:text-gray-400 text-lg">
-                No bookmarks yet.
-              </p>
-              <p className="text-gray-500 dark:text-gray-500">
-                Save your first URL above! 😊
-              </p>
+              className="slide-in-up"
+              style={{ animationDelay: `${index * 50}ms` }}
+            >
+              <BookmarkCard bookmark={bookmark} onDelete={handleDelete} />
             </div>
-          )}
+          ))}
         </div>
+
+        {bookmarks.length === 0 && (
+          <div className="text-center py-20 slide-in-up">
+            <div className="text-9xl mb-8 opacity-40">📚</div>
+            <h3 className="text-3xl font-bold text-slate-700 dark:text-pearl-200 mb-4">
+              No bookmarks yet
+            </h3>
+            <p className="text-slate-600 dark:text-obsidian-300 text-xl">
+              Save your first URL above to get started! ✨
+            </p>
+          </div>
+        )}
       </main>
     </div>
   );

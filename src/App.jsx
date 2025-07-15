@@ -14,7 +14,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      <div className="min-h-screen bg-neutral-200 dark:bg-zinc-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
         <Toaster richColors position="top-right" theme="system" />
 
         <Router>

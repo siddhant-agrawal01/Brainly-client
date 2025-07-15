@@ -2,62 +2,121 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary: #3b82f6;
-  --color-primary-dark: #0d0d0d;
+  /* Professional Color System - Light Mode */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+
+  /* Premium Blue Accent System */
+  --color-azure-50: #f0f9ff;
+  --color-azure-100: #e0f2fe;
+  --color-azure-200: #bae6fd;
+  --color-azure-300: #7dd3fc;
+  --color-azure-400: #38bdf8;
+  --color-azure-500: #0ea5e9;
+  --color-azure-600: #0284c7;
+  --color-azure-700: #0369a1;
+  --color-azure-800: #075985;
+  --color-azure-900: #0c4a6e;
+
+  /* Professional Neutrals */
+  --color-pearl-50: #fefefe;
+  --color-pearl-100: #fdfdfd;
+  --color-pearl-200: #fafafa;
+  --color-pearl-300: #f4f4f5;
+  --color-pearl-400: #e4e4e7;
+  --color-pearl-500: #d4d4d8;
+  --color-pearl-600: #a1a1aa;
+  --color-pearl-700: #71717a;
+  --color-pearl-800: #52525b;
+  --color-pearl-900: #27272a;
+
+  /* Dark Mode Professional Colors */
+  --color-obsidian-50: #f6f7f9;
+  --color-obsidian-100: #ebeef3;
+  --color-obsidian-200: #d3dae5;
+  --color-obsidian-300: #adb8cc;
+  --color-obsidian-400: #8393ad;
+  --color-obsidian-500: #647392;
+  --color-obsidian-600: #515c7a;
+  --color-obsidian-700: #434c63;
+  --color-obsidian-800: #3a4054;
+  --color-obsidian-900: #161a23;
+  --color-obsidian-950: #0a0d12;
 }
 
 /* Smooth transitions for theme switching */
 * {
-  transition-property: color, background-color, border-color, box-shadow;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
+  transition-property: color, background-color, border-color, box-shadow,
+    opacity;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Custom scrollbar for dark mode */
+/* Professional scrollbar styling */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-800;
+  @apply bg-pearl-100 dark:bg-obsidian-800;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 dark:bg-gray-600 rounded-full;
+  @apply bg-azure-300 dark:bg-azure-600 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500 dark:bg-gray-500;
+  @apply bg-azure-400 dark:bg-azure-500;
 }
 
-/* Ensure dark mode is applied immediately */
+/* Dark mode application */
 html.dark {
   color-scheme: dark;
 }
 
-/* Custom prose styles for dark mode */
-.prose-invert {
-  --tw-prose-body: theme("colors.gray.300");
-  --tw-prose-headings: theme("colors.white");
-  --tw-prose-links: theme("colors.blue.400");
-  --tw-prose-links-hover: theme("colors.blue.300");
-  --tw-prose-code: theme("colors.gray.200");
-  --tw-prose-pre-code: theme("colors.gray.200");
-  --tw-prose-pre-bg: theme("colors.gray.800");
-  --tw-prose-quotes: theme("colors.gray.300");
-  --tw-prose-quote-borders: theme("colors.gray.600");
+/* Enhanced prose styling */
+.prose-professional {
+  --tw-prose-body: theme("colors.slate.700");
+  --tw-prose-headings: theme("colors.slate.900");
+  --tw-prose-links: theme("colors.azure.600");
+  --tw-prose-links-hover: theme("colors.azure.700");
+  --tw-prose-code: theme("colors.slate.800");
+  --tw-prose-pre-code: theme("colors.slate.200");
+  --tw-prose-pre-bg: theme("colors.slate.900");
+  --tw-prose-quotes: theme("colors.slate.600");
+  --tw-prose-quote-borders: theme("colors.azure.300");
 }
 
-/* Focus ring improvements for dark mode */
-.focus-ring-dark {
-  @apply focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800;
+.dark .prose-professional {
+  --tw-prose-body: theme("colors.pearl.300");
+  --tw-prose-headings: theme("colors.pearl.100");
+  --tw-prose-links: theme("colors.azure.400");
+  --tw-prose-links-hover: theme("colors.azure.300");
+  --tw-prose-code: theme("colors.pearl.200");
+  --tw-prose-pre-code: theme("colors.pearl.300");
+  --tw-prose-pre-bg: theme("colors.obsidian.900");
+  --tw-prose-quotes: theme("colors.pearl.400");
+  --tw-prose-quote-borders: theme("colors.azure.600");
 }
 
-/* Animation for theme switcher */
-@keyframes fadeIn {
+/* Professional focus states */
+.focus-professional {
+  @apply focus:ring-2 focus:ring-azure-500 focus:ring-offset-2 focus:ring-offset-pearl-50 dark:focus:ring-offset-obsidian-900 focus:outline-none;
+}
+
+/* Subtle animations */
+@keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -65,6 +124,43 @@ html.dark {
   }
 }
 
-.fade-in {
-  animation: fadeIn 0.3s ease-out;
+.slide-in-up {
+  animation: slideInUp 0.4s ease-out;
+}
+
+/* Professional gradient overlays */
+.gradient-mesh-light {
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(14, 165, 233, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(14, 165, 233, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(14, 165, 233, 0.03) 0%,
+      transparent 50%
+    );
+}
+
+.gradient-mesh-dark {
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(14, 165, 233, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(14, 165, 233, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(14, 165, 233, 0.05) 0%,
+      transparent 50%
+    );
 }
