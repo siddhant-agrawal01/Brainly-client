@@ -15,7 +15,7 @@ const Login = () => {
     try {
       const res = await axios.post("/auth/login", form);
       localStorage.setItem("token", res.data.token);
-      navigate("/");
+      window.location.href = "/";
     } catch (err) {
       alert(err.response?.data?.error || "Login failed");
     }

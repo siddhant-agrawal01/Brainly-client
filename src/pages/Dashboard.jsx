@@ -7,6 +7,7 @@ import ThemeSwitcher from "../components/ThemeSwitcher";
 const Dashboard = () => {
   const [url, setUrl] = useState("");
   const [bookmarks, setBookmarks] = useState([]);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const navigate = useNavigate();
 
   const fetchBookmarks = useCallback(async () => {
@@ -15,11 +16,9 @@ const Dashboard = () => {
       setBookmarks(res.data);
     } catch (err) {
       console.error("Error fetching bookmarks:", err);
-      alert("Error fetching bookmarks. Please log in again.");
-      localStorage.removeItem("token");
-      navigate("/login");
+      // Don't show alert or redirect on error - let the user handle it manually
     }
-  }, [navigate]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,11 +44,14 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    window.location.href = "/login"; // Use window.location for immediate redirect
   };
 
   useEffect(() => {
-    fetchBookmarks();
+    // Only fetch if user is authenticated
+    if (localStorage.getItem("token")) {
+      fetchBookmarks();
+    }
   }, [fetchBookmarks]);
 
   return (

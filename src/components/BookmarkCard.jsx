@@ -19,33 +19,41 @@ const BookmarkCard = ({ bookmark, onDelete }) => {
         toast.success("Bookmark deleted");
         onDelete(bookmark._id);
       } else {
-        toast.error("Failed to delete");
+        toast.error("Failed to delete bookmark.");
       }
     } catch (err) {
-      toast.error("Error deleting");
+      toast.error("An error occurred while deleting.");
     }
   };
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm dark:shadow-gray-900/20 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-900/30 transition-all duration-200">
+      {/* Top Row: Favicon + Title + Delete */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <img
-            src={bookmark.favicon || "/favicon.ico"}
-            alt="favicon"
-            className="w-6 h-6 rounded-sm"
-            onError={(e) => {
-              e.target.style.display = "none";
-            }}
-          />
-          <a
-            href={bookmark.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-700 dark:hover:text-blue-300 hover:underline transition-colors duration-200 line-clamp-1"
-          >
-            {bookmark.title}
-          </a>
+          {bookmark.favicon && (
+            <img
+              src={bookmark.favicon}
+              alt="favicon"
+              className="w-6 h-6 rounded-sm object-contain"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
+            />
+          )}
+          <div className="flex flex-col">
+            <a
+              href={bookmark.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 dark:text-blue-400 font-medium hover:underline line-clamp-1"
+            >
+              {bookmark.title}
+            </a>
+            <span className="text-sm text-gray-500 dark:text-gray-400 line-clamp-1">
+              {bookmark.url}
+            </span>
+          </div>
         </div>
         <button
           onClick={handleDelete}
@@ -55,9 +63,12 @@ const BookmarkCard = ({ bookmark, onDelete }) => {
         </button>
       </div>
 
-      <div className="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+      {/* Markdown Summary */}
+      <div className="prose prose-sm dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed break-words">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
-          {bookmark.summary || "*No summary available.*"}
+          {bookmark.summary?.trim()
+            ? bookmark.summary
+            : "_No summary available for this link._"}
         </ReactMarkdown>
       </div>
     </div>
