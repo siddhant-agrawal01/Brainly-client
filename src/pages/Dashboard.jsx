@@ -6,6 +6,7 @@ import Header from "../components/Header";
 const Dashboard = () => {
   const [url, setUrl] = useState("");
   const [bookmarks, setBookmarks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchBookmarks = useCallback(async () => {
     try {
@@ -20,12 +21,15 @@ const Dashboard = () => {
     e.preventDefault();
     if (!url.trim()) return;
 
+    setIsLoading(true);
     try {
       const res = await axios.post("/bookmarks", { url });
       setBookmarks([res.data, ...bookmarks]);
       setUrl("");
     } catch (err) {
       alert(err.response?.data?.error || "Failed to save bookmark");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -61,12 +65,25 @@ const Dashboard = () => {
               placeholder="Enter a URL to save..."
               className="flex-1 px-6 py-4 border-0 bg-pearl-100/90 dark:bg-obsidian-800/90 backdrop-blur-sm rounded-2xl focus-professional text-slate-900 dark:text-pearl-100 placeholder-slate-500 dark:placeholder-obsidian-300 shadow-lg transition-all duration-300"
               required
+              disabled={isLoading}
             />
             <button
               type="submit"
-              className="bg-gradient-to-r from-azure-500 to-azure-600 hover:from-azure-600 hover:to-azure-700 text-pearl-50 px-10 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:shadow-azure-500/25 hover:scale-105 transition-all duration-300"
+              disabled={isLoading}
+              className={`relative bg-gradient-to-r from-azure-500 to-azure-600 hover:from-azure-600 hover:to-azure-700 text-pearl-50 px-10 py-4 rounded-2xl font-semibold shadow-lg transition-all duration-300 ${
+                isLoading
+                  ? "opacity-80 cursor-not-allowed"
+                  : "hover:shadow-xl hover:shadow-azure-500/25 hover:scale-105"
+              }`}
             >
-              Save Bookmark
+              {isLoading ? (
+                <div className="flex items-center gap-3">
+                  <div className="animate-spin h-5 w-5 border-2 border-pearl-50/30 border-t-pearl-50 rounded-full"></div>
+                  <span className="animate-pulse">Saving...</span>
+                </div>
+              ) : (
+                "Save Bookmark"
+              )}
             </button>
           </form>
         </div>
