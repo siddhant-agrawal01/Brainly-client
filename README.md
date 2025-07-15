@@ -1,5 +1,9 @@
 # Brainly Frontend
 
+
+https://github.com/user-attachments/assets/bb3fa472-3f73-4711-b4da-b593e2947cc3
+
+
 A React application built with Vite for the Brainly platform, featuring bookmark management and user authentication.
 
 ## 🚀 Quick Start
