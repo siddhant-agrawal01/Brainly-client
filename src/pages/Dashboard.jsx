@@ -52,8 +52,8 @@ const Dashboard = () => {
     <div className="min-h-screen bg-pearl-50 dark:bg-obsidian-950 gradient-mesh-light dark:gradient-mesh-dark transition-all duration-500">
       <Header />
 
-      <main className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
-        <div className="bg-pearl-50/40  dark:bg-obsidian-900/90 backdrop-blur-xl rounded-3xl shadow-xl shadow-slate-900/5 dark:shadow-black/30 border border-pearl-200/60 dark:border-obsidian-700/60 p-10 mb-10 slide-in-up">
+      <main className="max-w-7xl mx-auto mt-10 px-6 sm:px-8 lg:px-12 py-8">
+        <div className="bg-pearl-50/40  dark:bg-obsidian-900/20 backdrop-blur-xl rounded-3xl shadow-xl shadow-slate-900/5 dark:shadow-black/30 border border-pearl-200/60 dark:border-obsidian-700/60 p-10 mb-10 slide-in-up">
           <h2 className="text-2xl font-bold bg-gradient-to-r from-azure-600 to-azure-700 dark:from-azure-400 dark:to-azure-300 bg-clip-text text-transparent mb-8">
             Add New Bookmark
           </h2>

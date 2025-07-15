@@ -1,12 +1,81 @@
-# React + Vite
+# Brainly Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application built with Vite for the Brainly platform, featuring bookmark management and user authentication.
 
-Currently, two official plugins are available:
+## 🚀 Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd brainly/client
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Environment Setup**
+   Create a `.env` file in the client root directory:
+   ```env
+   VITE_API_URL=http://localhost:5000/api
+   # or for production
+   VITE_API_URL=https://your-vercel-app.vercel.app/api
+   ```
+
+4. **Start development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. **Open in browser**
+   Navigate to `http://localhost:5173`
+
+## 🧪 Testing
+
+### Test Account
+For testing purposes, use these credentials:
+- **Email:** `saviantech@gmail.com`
+- **Password:** `timetoquit`
+
+
+## 🛠 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+
+## 🔧 Tech Stack
+
+- **React 18** - UI framework
+- **Vite** - Build tool and dev server
+- **React Router** - Client-side routing
+- **Axios** - HTTP client for API calls
+- **Tailwind CSS** - Utility-first CSS framework (if used)
+
+## 🌐 API Integration
+
+The frontend communicates with the backend API for:
+- User authentication (login/register)
+- Bookmark management (CRUD operations)
+
+API endpoints are configured through the `VITE_API_URL` environment variable.
+
+## 🚀 Deployment
+
+### Build for production
+```bash
+npm run build
+```
+
+
+

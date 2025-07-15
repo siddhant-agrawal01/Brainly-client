@@ -10,7 +10,7 @@ const BookmarkCard = ({ bookmark, onDelete }) => {
     e.stopPropagation();
     try {
       const res = await fetch(
-        `http://localhost:5000/api/bookmarks/${bookmark._id}`,
+        `https://brainly-cj6c.vercel.app/api/bookmarks/${bookmark._id}`,
         {
           method: "DELETE",
           headers: {

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from '../utils/auth';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://brainly-cj6c.vercel.app/api',
 });
 
 instance.interceptors.request.use((config) => {
