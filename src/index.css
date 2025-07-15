@@ -1,1 +1,70 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #3b82f6;
+  --color-primary-dark: #0d0d0d;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Custom scrollbar for dark mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500 dark:bg-gray-500;
+}
+
+/* Ensure dark mode is applied immediately */
+html.dark {
+  color-scheme: dark;
+}
+
+/* Custom prose styles for dark mode */
+.prose-invert {
+  --tw-prose-body: theme("colors.gray.300");
+  --tw-prose-headings: theme("colors.white");
+  --tw-prose-links: theme("colors.blue.400");
+  --tw-prose-links-hover: theme("colors.blue.300");
+  --tw-prose-code: theme("colors.gray.200");
+  --tw-prose-pre-code: theme("colors.gray.200");
+  --tw-prose-pre-bg: theme("colors.gray.800");
+  --tw-prose-quotes: theme("colors.gray.300");
+  --tw-prose-quote-borders: theme("colors.gray.600");
+}
+
+/* Focus ring improvements for dark mode */
+.focus-ring-dark {
+  @apply focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800;
+}
+
+/* Animation for theme switcher */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}

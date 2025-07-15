@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from '../api/axios';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
 
 const Register = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -13,42 +13,68 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/auth/signup', form);
-      navigate('/login');
+      await axios.post("/auth/signup", form);
+      navigate("/login");
     } catch (err) {
-      alert(err.response?.data?.error || 'Registration failed');
+      alert(err.response?.data?.error || "Registration failed");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm space-y-4">
-        <h2 className="text-2xl font-semibold text-center">Register</h2>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className="w-full border px-3 py-2 rounded"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          className="w-full border px-3 py-2 rounded"
-          value={form.password}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
-          Register
-        </button>
-        <p className="text-center text-sm">
-          Already have an account? <a href="/login" className="text-green-600">Login</a>
-        </p>
-      </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <div className="w-full max-w-md">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg dark:shadow-gray-900/50 border border-gray-200 dark:border-gray-700 space-y-6"
+        >
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+              Create Account
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mt-2">
+              Join us to start saving bookmarks
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="w-full border border-gray-300 dark:border-gray-600 px-4 py-3 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="w-full border border-gray-300 dark:border-gray-600 px-4 py-3 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white py-3 rounded-lg font-medium transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+          >
+            Create Account
+          </button>
+
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+            Already have an account?{" "}
+            <a
+              href="/login"
+              className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium transition-colors duration-200"
+            >
+              Sign in
+            </a>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };
